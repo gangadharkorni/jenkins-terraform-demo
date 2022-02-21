@@ -70,14 +70,14 @@ resource "aws_ebs_volume" "terra" {
 
 ## s3 bucket
 
-resource "aws_s3_bucket" "penthaho_bucket" {
-  bucket = "penthaho-bucket"
+#resource "aws_s3_bucket" "penthaho_bucket" {
+#  bucket = "penthaho-bucket"
 
- tags = {
-   Name        = "penthaho_new_bucket"
-   Environment = "Dev"
-  }
-}
+ #tags = {
+  # Name        = "penthaho_new_bucket"
+  # Environment = "Dev"
+  #}
+#}
 
 
 
@@ -95,24 +95,24 @@ resource "aws_eip" "penthaho_eip" {
 
 ## route 53
 
-resource "aws_route53_record" "penthaho_route" {
-  zone_id = "$[aws_route53_zone.primary.zone_id]"
-  name    = "penthaho_route.dev.com"
-  type    = "A"
-  ttl     = "300"
-}
+# resource "aws_route53_record" "penthaho_route" {
+ # zone_id = "$[aws_route53_zone.primary.zone_id]"
+  #name    = "penthaho_route.dev.com"
+  #type    = "A"
+  #ttl     = "300"
+#}
 
 ## dynamodb table
 
 
-resource "aws_dynamodb_table" "my_first_table" {
-  name        = "terraformlock"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key       = "employee-id"
-  attribute {
-    name = "employee-id"
-    type = "S"
-  }
+#resource "aws_dynamodb_table" "my_first_table" {
+  #name        = "terraformlock"
+  #billing_mode = "PAY_PER_REQUEST"
+  #hash_key       = "employee-id"
+  #attribute {
+ #   name = "employee-id"
+  #  type = "S"
+ # }
 
 }
 
