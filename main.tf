@@ -4,6 +4,16 @@ provider "aws" {
   secret_key = "QybTmAIcFkLjIZZEigQ2r44BCCbql7fbmKjhOIei"
 }
 
+
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+resource "aws_key_pair" "generated_key" {
+  key_name   = "public"
+  public_key = tls_private_key.example.public_key_openssh
+}
+
 ## creating new ec2 instance
 
 resource "aws_instance" "pentaho" {
@@ -11,7 +21,7 @@ resource "aws_instance" "pentaho" {
   ami           = "ami-0ffc7af9c06de0077"
   instance_type = "t2.small"
   vpc_security_group_ids = ["${aws_security_group.terra_security_group.id}"]
-
+  key_name      = aws_key_pair.generated_key.key_name
 
   tags = {
     Name = "pentaho${count.index}-ec2"
