@@ -113,6 +113,6 @@ resource "aws_eip" "penthaho_eip" {
  #   name = "employee-id"
   #  type = "S"
  # }
+#}
 
-}
 
