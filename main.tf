@@ -82,16 +82,13 @@ resource "aws_ebs_volume" "terra" {
 
 
 ## elastic ip
-
-resource "aws_eip_association" "penthaho_eip" {
- instance_id   = "aws_instance.centos.id"
- allocation_id = "aws_instance.centos.id"
-
+resource "aws_eip" "ip" {
+  count    = 4
+  instance = "${element(aws_instance.pentaho.*.id, count.index)}"
+  vpc      = true
 }
 
-resource "aws_eip" "penthaho_eip" {
-  vpc = true
-}
+
 
 ## route 53
 
@@ -101,7 +98,19 @@ resource "aws_eip" "penthaho_eip" {
   #type    = "A"
   #ttl     = "300"
 #}
+resource "aws_route53_zone" "primary" {
+  name = "pentaho_route.dev.com"
+}
+resource "aws_route53_record" "dns_a" {
+  zone_id = "${aws_route53_zone.primary.id}"
+  name    = "examplerecord"
+  type    = "A"
+  ttl     = "30"
 
+  records = [
+    "${aws_eip.ip.*.public_ip}",
+  ]
+}
 ## dynamodb table
 
 
