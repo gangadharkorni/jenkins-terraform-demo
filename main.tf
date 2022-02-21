@@ -108,7 +108,7 @@ resource "aws_route53_record" "dns_a" {
   ttl     = "30"
 
   records = [
-    "${aws_eip.ip.*.public_ip}",
+    "${aws_eip.ip.*.public_ip}"
   ]
 }
 ## dynamodb table
