@@ -1,7 +1,5 @@
 ---
 - name: using pentaho role playbook
-  hosts: web
-  become: true
 
   roles:
     - role: penthaho
